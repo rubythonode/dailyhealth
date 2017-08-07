@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import oc from 'open-color';
-
+import ClickOutside from 'react-click-outside';
 
 const Wrapper = styled.div`
   position: fixed;
@@ -9,6 +9,7 @@ const Wrapper = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
+  z-index: 10;
 
   @media (max-width: 900px) {
     width: calc(100% - 2rem);
@@ -19,10 +20,24 @@ const Wrapper = styled.div`
   }
 `;
 
-const Modal = ({children}) => (
-  <Wrapper>
-    {children}
-  </Wrapper>
-)
+class Modal extends Component {
 
-export default Modal;
+  handleClickOutside = () => {
+    const { visible, onHide } = this.props;
+    onHide();
+  }
+
+  render() {
+    const { children, visible, onHide } = this.props;
+    return (
+      <Wrapper>
+        {
+          visible ? <div>{children}</div> : null
+        }
+      </Wrapper>
+    );
+  }
+
+}
+
+export default ClickOutside(Modal);

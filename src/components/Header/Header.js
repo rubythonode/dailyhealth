@@ -88,7 +88,7 @@ const AuthButton = styled.div`
   }
 `;
 
-const Header = () => (
+const Header = ({onShow}) => (
   <Wrapper>
     <WrapperHeader>
       <SidebarButton>
@@ -98,7 +98,7 @@ const Header = () => (
         Daily Health
       </Logo>
       <AuthButtonWrapper>
-        <AuthButton>
+        <AuthButton onClick={onShow}>
           <User/>로그인 / 회원가입
         </AuthButton>
       </AuthButtonWrapper>

@@ -8,24 +8,60 @@ import { Main, About } from './routes';
   // Base
 import { Header } from '../components';
   // Common
-import { Layout, Modal, LoginModal } from '../components';
+import { Layout, Modal, AuthModal, Dimmed } from '../components';
 
 class App extends Component {
+  state = {
+    modalvisible: false,
+    modal: {
+      mode: 'auth',
+      status: 'login'
+    }
+  }
+
+  handleModalShow = () => {
+    this.setState({
+      modalvisible: true,
+      modal: {
+        status: 'login'
+      }
+    });
+  }
+
+  handleModalHide = () => {
+    this.setState({
+      modalvisible: false
+    })
+  }
+
+  handleAuthMode = (status) => {
+    this.setState({
+      modal: {
+        status
+      }
+    })
+  }
 
   render() {
+    const { modalvisible } = this.state;
+    const { mode, status } = this.state.modal;
+
+    const { handleModalShow, handleModalHide, handleAuthMode } = this;
+
     return (
       <Router>
         <div>
-          <Header/>
-          
+          <Header onShow={handleModalShow}/>
+
           <Layout>
             <Route exact path="/" component={Main} />
             <Route path="/about" component={About} />
           </Layout>
 
-          <Modal>
-            <LoginModal/>
+          <Modal visible={modalvisible} onHide={handleModalHide}>
+            <AuthModal status={status} handleAuthMode={handleAuthMode}/>
           </Modal>
+          <Dimmed visible={modalvisible}/>
         </div>
       </Router>
     );
