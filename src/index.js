@@ -13,6 +13,10 @@ import store from './store';
 import firebase from 'firebase';
 import firebaseConfig from './config/firebase';
 
+/* alertify */
+import alertify from 'alertifyjs';
+
+alertify.set('notifier','position', 'top-right');
 firebase.initializeApp(firebaseConfig);
 
 ReactDOM.render(

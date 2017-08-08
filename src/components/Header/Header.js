@@ -31,12 +31,11 @@ const WrapperHeader = styled.div`
   padding-left: 1rem;
   padding-right: 1rem;
 
-  /* 반응형
+  /* 반응형 */
   @media (max-width: 998px) {
     width: 100%;
   }
 
-  */
 `;
 
 const Header = ({onLoginButtonClick}) => (

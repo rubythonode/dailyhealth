@@ -26,8 +26,8 @@ const Wrapper = styled.div`
   }
 `;
 
-const SubmitButton = ({text}) => (
-  <Wrapper>
+const SubmitButton = ({text, onAuth}) => (
+  <Wrapper onClick={() => { onAuth() }}>
     {text}
   </Wrapper>
 )

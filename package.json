@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "alertifyjs": "^1.11.0",
     "firebase": "^4.2.0",
     "immutable": "^3.8.1",
     "open-color": "^1.5.1",

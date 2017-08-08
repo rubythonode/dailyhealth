@@ -42,12 +42,12 @@ const Social = styled.div`
   }
 `;
 
-const SocialButton = () => (
+const SocialButton = ({onGoogle, onFacebook}) => (
   <div>
-    <Social className="google">
+    <Social className="google" onClick={() => { onGoogle() }}>
       <GoogleIcon size={20}/> 구글로 로그인하기
     </Social>
-    <Social className="facebook">
+    <Social className="facebook" onClick={() => { onFacebook() }}>
       <FacebookIcon size={20}/> 페이스북으로 로그인하기
     </Social>
   </div>
