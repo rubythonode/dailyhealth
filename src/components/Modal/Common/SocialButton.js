@@ -7,7 +7,6 @@ import FacebookIcon from 'react-icons/lib/fa/facebook';
 const Social = styled.div`
 
   /* 색상 */
-  background-color: ${oc.red[6]};
   color: white;
 
   /* 글자 */
@@ -25,15 +24,27 @@ const Social = styled.div`
 
   /* 기타 */
   cursor: pointer;
-  
+
+  &.google {
+    background-color: ${oc.red[6]};
+
+    &:hover {
+      background-color: ${oc.red[5]};
+    }
+  }
+
   &.facebook {
     background-color: ${oc.blue[6]};
+
+    &:hover {
+      background-color: ${oc.blue[5]};
+    }
   }
 `;
 
 const SocialButton = () => (
   <div>
-    <Social>
+    <Social className="google">
       <GoogleIcon size={20}/> 구글로 로그인하기
     </Social>
     <Social className="facebook">

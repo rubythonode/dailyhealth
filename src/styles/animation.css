@@ -1,3 +1,4 @@
+/* Dimmed */
 .fade-enter {
   animation-duration: .15s;
   animation-fill-mode: both;
@@ -29,5 +30,51 @@
 
   100% {
     opacity: 0;
+  }
+}
+
+/* Modal */
+
+.modal-enter {
+  animation-duration: .15s;
+  animation-fill-mode: both;
+  animation-timing-function: ease-out;
+  animation-name: slideDown;
+}
+
+.modal-leave {
+  animation-duration: .15s;
+  animation-fill-mode: both;
+  animation-timing-function: ease-out;
+  animation-name: slideUp;
+}
+
+
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+  75% {
+      opacity: 1;
+      transform: translateY(-25px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+  25% {
+      opacity: 1;
+      transform: translateY(25px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(100px);
   }
 }

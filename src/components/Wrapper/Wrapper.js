@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import oc from 'open-color';
 
 const ContainerWrapper = styled.div`
   /* 헤더 크기만큼 아래로 */

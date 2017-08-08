@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import oc from 'open-color';
 
 
 const Wrapper = styled.div`
@@ -23,9 +22,9 @@ const Auth = styled.div`
   float: right;
 `;
 
-const Footer = ({modeText, onChangeMode}) => (
+const Footer = ({modeText, onChangeMode, onChangeModePassword}) => (
   <Wrapper>
-    <Password>비밀번호 찾기</Password>
+    <Password onClick={() => { onChangeModePassword() }}>비밀번호 찾기</Password>
     <Auth onClick={() => { onChangeMode() }}>{modeText}</Auth>
   </Wrapper>
 )

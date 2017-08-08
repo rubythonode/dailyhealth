@@ -28,10 +28,11 @@ class LoginModalContainer extends Component {
     if(!visible) return;
     BaseActions.setDimmedVisibility(false);
     AuthActions.toggleLoginModal();
+    AuthActions.setModalMode('login');
   }
 
   handleClickOutside = evt => {
-    this.handleClose()
+    this.handleClose();
   }
 
   handleChangeMode = () => {
@@ -39,18 +40,24 @@ class LoginModalContainer extends Component {
     const conversion = mode === 'login' ? 'register' : 'login';
     AuthActions.setModalMode(conversion);
   }
+
+  handleChangeModePassword = () => {
+    const { AuthActions } = this.props;
+    AuthActions.setModalMode('password');
+  }
+
   render() {
     const { visible, mode } = this.props;
-    const { handleChangeMode } = this;
+    const { handleChangeMode, handleChangeModePassword } = this;
     return (
       <LoginModal
         visible={visible}
         mode={mode}
         onChangeMode={handleChangeMode}
+        onChangeModePassword={handleChangeModePassword}
       />
     );
   }
-
 }
 
 export default connect(

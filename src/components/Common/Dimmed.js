@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import oc from 'open-color';
-import { CSSTransitionGroup } from 'react-transition-group' // ES6
+import { CSSTransitionGroup } from 'react-transition-group';
 
 const DimmedWrapper = styled.div`
 
@@ -20,18 +20,17 @@ const Wrapper = styled.div`
   bottom: 0;
   /* 색상 */
   background-color: ${oc.gray[7]};
-  box-shadow: 0.2px 0.2px 5px #555;
 `;
 
 const Dimmed = ({ visible }) => (
   <DimmedWrapper>
     <CSSTransitionGroup
       transitionName="fade"
-      transitionEnterTimeout={200}
-      transitionLeaveTimeout={200}>
-        {
-          visible ? <Wrapper/> : null
-        }
+      transitionEnterTimeout={800}
+      transitionLeaveTimeout={800}>
+      {
+        visible ? <Wrapper/> : null
+      }
     </CSSTransitionGroup>
   </DimmedWrapper>
 );
