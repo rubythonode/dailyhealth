@@ -1,0 +1,18 @@
+@import 'font.css';
+@import 'animation.css';
+
+body {
+  /* 크기 */
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+
+
+  /* 글꼴 */
+  font-family: 'Noto Sans KR';
+}
+
+*, *::after, *::before {
+  box-sizing: inherit;
+}
