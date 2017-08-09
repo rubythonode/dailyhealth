@@ -18,9 +18,9 @@ const Wrapper = styled.div`
   text-align: center;
 `;
 
-const Logo = () => (
+const Logo = ({text}) => (
   <Wrapper>
-    Daily Health
+    {text}
   </Wrapper>
 )
 

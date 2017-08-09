@@ -1,9 +1,12 @@
 import React from 'react';
 import { HeaderContainer } from '../../../containers';
-
+import { Wrapper, Background } from '../../';
 const HomePage = () => {
   return (
-    <HeaderContainer/>
+    <div>
+      <HeaderContainer/>
+      <Background/>
+    </div>
   )
 }
 

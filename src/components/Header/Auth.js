@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import oc from 'open-color';
 import User from 'react-icons/lib/fa/user';
+import Out from 'react-icons/lib/fa/sign-out';
 
 const Wrapper = styled.div`
   float: right;
@@ -15,6 +16,7 @@ const Wrapper = styled.div`
 const AuthButton = styled.div`
   /* 위치 */
   margin-top: 0.7rem;
+  margin-left: 0.7rem;
 
   /* 색상 */
   background-color: ${oc.gray[7]};
@@ -28,6 +30,7 @@ const AuthButton = styled.div`
 
   /* 기타 */
   cursor: pointer;
+  display: inline-block;
 
   /* 테두리 */
   border-radius: 4px;
@@ -40,7 +43,20 @@ const AuthButton = styled.div`
   }
 `;
 
-const Auth = ({onLoginButtonClick}) => (
+const UserInfomation = styled.div`
+
+`;
+
+const Auth = ({onLoginButtonClick, onLogout, login}) => login ? (
+  <Wrapper>
+    <AuthButton>
+      <User size={25}/> 마이페이지
+    </AuthButton>
+    <AuthButton onClick={() => { onLogout() }}>
+      <Out size={25}/> 로그아웃
+    </AuthButton>
+  </Wrapper>
+) : (
   <Wrapper>
     <AuthButton onClick={() => { onLoginButtonClick() }}>
       <User size={25}/> 로그인 / 회원가입

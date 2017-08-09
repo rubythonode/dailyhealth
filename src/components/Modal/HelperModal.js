@@ -35,7 +35,7 @@ const Button = styled.div`
 
 const HelperModal = ({visible, onNotConnect, onConnect}) => (
   <ModalWrapper visible={visible}>
-    <Logo/>
+    <Logo text="Daily Health"/>
     <Content>
       <p>이미 가입이 되어있어요!</p>
       <p>해당 계정과 연동하시겠어요?</p>

@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import * as baseActions from '../modules/base';
 import * as authActions from '../modules/auth';
 import auth from '../helpers/firebase/auth';
+import alertify from 'alertifyjs';
 
 class HeaderContainer extends Component {
 
@@ -18,11 +19,14 @@ class HeaderContainer extends Component {
 
   handleLogout() {
     auth.logout();
+    alertify.success('로그아웃에 성공했어요!');
   }
   render() {
+    const { login } = this.props;
     const { handleLoginButtonClick, handleLogout } = this;
     return (
       <Header
+        login={login}
         onLoginButtonClick={handleLoginButtonClick}
         onLogout={handleLogout}
       />
@@ -33,7 +37,7 @@ class HeaderContainer extends Component {
 
 export default connect(
   (state) => ({
-
+    login: state.auth.getIn(['auth', 'login'])
   }),
   (dispatch) => ({
     BaseActions: bindActionCreators(baseActions, dispatch),

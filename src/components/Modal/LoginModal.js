@@ -9,15 +9,13 @@ const LoginModal = ({visible, mode, onChangeMode, onChangeModePassword, onChange
 
   const login = (
     <div>
-      <Logo>
-      Daily Health
-      </Logo>
+      <Logo text="Daily Health"/>
       <Content>
         <Input type="email" placeholder="이메일을 입력하세요" name="email" onChange={(e) => onChangeInput(e)}/>
         <Input type="password" placeholder="비밀번호를 입력하세요" name="password" onChange={(e) => onChangeInput(e)}/>
         <SubmitButton
           text={modeReverseText}
-          onAuth={onAuth}
+          onClick={onAuth}
           />
         <Footer modeText={modeText} onChangeMode={onChangeMode} onChangeModePassword={onChangeModePassword}/>
         <Separator/>

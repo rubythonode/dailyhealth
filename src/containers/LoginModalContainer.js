@@ -7,11 +7,14 @@ import { LoginModal } from '../components';
 import * as baseActions from '../modules/base';
 import * as authActions from '../modules/auth';
 
+import { withRouter } from "react-router-dom";
+
 import auth from '../helpers/firebase/auth';
 
 class LoginModalContainer extends Component {
   componentDidMount() {
       window.addEventListener("keydown", this.handleKeyDown);
+      console.log(this.props.history);
   }
 
   componentWillUnMount() {
@@ -56,7 +59,7 @@ class LoginModalContainer extends Component {
   }
 
   handleAuth = () => {
-    const { infomation, mode } = this.props;
+    const { infomation, mode, AuthActions, BaseActions } = this.props;
     const { email, password } = infomation;
 
     if(mode === 'login') {
@@ -67,6 +70,8 @@ class LoginModalContainer extends Component {
       provider.then((user) => {
         if(user.uid) {
           alertify.success('로그인에 성공했어요!');
+          AuthActions.toggleLoginModal()
+          BaseActions.setDimmedVisibility(false);
         }
       }).catch((error) => {
         switch(error.code) {
@@ -86,7 +91,13 @@ class LoginModalContainer extends Component {
 
       provider.then((user) => {
         if(user.uid) {
-          alertify.success('로그인에 성공했어요!');
+          alertify.success('추가 정보를 입력해주세요!');
+          AuthActions.toggleLoginModal()
+          BaseActions.setDimmedVisibility(false);
+          setTimeout(() => {
+              this.props.history.push("/register");
+          }, 1000);
+
         }
       }).catch((error) => {
         switch(error.code) {
@@ -112,10 +123,12 @@ class LoginModalContainer extends Component {
     const { BaseActions, AuthActions } = this.props;
     const provider = auth.google();
 
-    provider.then((result) => {
-      const token = result.credential.accessToken;
-      const user = result.user;
-      console.log(user);
+    provider.then((user) => {
+      if(user) {
+        alertify.success('로그인에 성공했어요!');
+        AuthActions.toggleLoginModal()
+        BaseActions.setDimmedVisibility(false);
+      }
     }).catch(function(error) {
 
       const { code, Message, email, credential } = error;
@@ -139,9 +152,12 @@ class LoginModalContainer extends Component {
     const { BaseActions, AuthActions } = this.props;
     const provider = auth.facebook();
 
-    provider.then((result) => {
-      const token = result.credential.accessToken;
-      const user = result.user;
+    provider.then((user) => {
+      if(user) {
+        alertify.success('로그인에 성공했어요!');
+        AuthActions.toggleLoginModal()
+        BaseActions.setDimmedVisibility(false);
+      }
     }).catch(function(error) {
       const { code, Message, email, credential } = error;
 
@@ -198,4 +214,4 @@ export default connect(
     BaseActions: bindActionCreators(baseActions, dispatch),
     AuthActions: bindActionCreators(authActions, dispatch)
   })
-)(ClickOutside(LoginModalContainer));
+)(withRouter(ClickOutside(LoginModalContainer)));

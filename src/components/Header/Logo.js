@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import oc from 'open-color';
+import { Link } from 'react-router-dom';
 
 const Wrapper = styled.div`
   /* 수평 정렬 */
@@ -13,16 +14,18 @@ const Wrapper = styled.div`
   display: inline-block;
 
 
-  /* 색상 */
-  color: ${oc.pink[6]};
-
   /* 기타 */
   cursor: pointer;
+
+  & > a {
+    text-decoration: none;
+    color: ${oc.pink[6]};
+  }
 `;
 
-const Logo = ({onLogout}) => (
-  <Wrapper onClick={() => { onLogout() }}>
-    Daily Health
+const Logo = () => (
+  <Wrapper>
+    <Link to="/">Daily Health</Link>
   </Wrapper>
 );
 

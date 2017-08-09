@@ -38,12 +38,12 @@ const WrapperHeader = styled.div`
 
 `;
 
-const Header = ({onLoginButtonClick, onLogout}) => (
+const Header = ({onLoginButtonClick, login, onLogout}) => (
   <Wrapper>
     <WrapperHeader>
       <Sidebar/>
-      <Logo onLogout={onLogout}/>
-      <Auth onLoginButtonClick={onLoginButtonClick}/>
+      <Logo/>
+      <Auth onLoginButtonClick={onLoginButtonClick} login={login} onLogout={onLogout}/>
     </WrapperHeader>
   </Wrapper>
 );

@@ -7,6 +7,9 @@ import Wrapper from './Wrapper/Wrapper';
 // Common
 import ModalWrapper from './Common/ModalWrapper';
 import Dimmed from './Common/Dimmed';
+import Background from './Common/Background';
+import Content from './Common/Content';
+import TabMenu from './Common/TabMenu';
 
 // Modal
 
@@ -20,5 +23,8 @@ export {
   ModalWrapper,
   Dimmed,
   LoginModal,
-  HelperModal
+  HelperModal,
+  Background,
+  Content,
+  TabMenu
 }
