@@ -5,8 +5,9 @@ import { Dimmed } from '../components';
 class DimmedContainer extends Component {
 
   render() {
+    const { Modalvisible, HelperModalvisible } = this.props;
     return (
-      <Dimmed {...this.props}/>
+      <Dimmed visible={Modalvisible | HelperModalvisible}/>
     );
   }
 
@@ -14,6 +15,7 @@ class DimmedContainer extends Component {
 
 export default connect(
   (state) => ({
-    visible: state.base.getIn(['dimmed', 'visible'])
+    Modalvisible: state.base.getIn(['dimmed', 'visible']),
+    HelperModalvisible: state.base.getIn(['helperModal', 'visible'])
   })
 )(DimmedContainer);

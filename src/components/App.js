@@ -6,14 +6,14 @@ import { bindActionCreators } from 'redux';
 import * as baseActions from '../modules/base';
 import { HomePage, DailyPage } from './Pages';
 import { Dimmed } from './';
-import { LoginModalContainer, DimmedContainer } from '../containers';
+import { LoginModalContainer, DimmedContainer, HelperModalContainer } from '../containers';
 import auth from '../helpers/firebase/auth';
 
 class App extends Component {
   componentDidMount() {
     auth.onAuthStateChanged((user) => {
       if(user) {
-        console.log('로그인 상태')
+        console.log('로그인');
       } else {
         console.log('로그인이 안된 상태')
       }
@@ -26,6 +26,7 @@ class App extends Component {
           <Route exact path="/" component={HomePage}/>
           <Route path="/daily" component={DailyPage}/>
           <LoginModalContainer/>
+          <HelperModalContainer/>
           <DimmedContainer/>
         </div>
       </Router>

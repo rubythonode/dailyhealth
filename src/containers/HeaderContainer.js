@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as baseActions from '../modules/base';
 import * as authActions from '../modules/auth';
+import auth from '../helpers/firebase/auth';
 
 class HeaderContainer extends Component {
 
@@ -14,11 +15,16 @@ class HeaderContainer extends Component {
     BaseActions.setDimmedVisibility(true);
     AuthActions.toggleLoginModal();
   }
+
+  handleLogout() {
+    auth.logout();
+  }
   render() {
-    const { handleLoginButtonClick } = this;
+    const { handleLoginButtonClick, handleLogout } = this;
     return (
       <Header
         onLoginButtonClick={handleLoginButtonClick}
+        onLogout={handleLogout}
       />
     );
   }

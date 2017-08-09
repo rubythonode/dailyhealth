@@ -20,8 +20,8 @@ const Wrapper = styled.div`
   cursor: pointer;
 `;
 
-const Logo = () => (
-  <Wrapper>
+const Logo = ({onLogout}) => (
+  <Wrapper onClick={() => { onLogout() }}>
     Daily Health
   </Wrapper>
 );

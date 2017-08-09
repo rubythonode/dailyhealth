@@ -4,6 +4,7 @@ import Footer from './Common/Footer';
 import Separator from './Common/Separator';
 import SocialButton from './Common/SocialButton';
 import SubmitButton from './Common/SubmitButton';
+import Content from './Common/Content';
 
 export {
   Logo,
@@ -11,5 +12,6 @@ export {
   Footer,
   Separator,
   SocialButton,
-  SubmitButton
+  SubmitButton,
+  Content
 }

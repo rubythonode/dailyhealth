@@ -109,6 +109,7 @@ class LoginModalContainer extends Component {
   }
 
   handleGoogle = () => {
+    const { BaseActions, AuthActions } = this.props;
     const provider = auth.google();
 
     provider.then((result) => {
@@ -117,30 +118,45 @@ class LoginModalContainer extends Component {
       console.log(user);
     }).catch(function(error) {
 
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      const email = error.email;
-      console.log(errorCode);
-      const credential = error.credential;
+      const { code, Message, email, credential } = error;
+
+      switch(code) {
+        case 'auth/account-exists-with-different-credential':
+
+          AuthActions.toggleLoginModal();
+          BaseActions.setDimmedVisibility(false);
+          BaseActions.setHelperModalVisibility({
+            'visible': true,
+            email
+          });
+          break;
+      }
 
     });
   }
 
   handleFacebook = () => {
-      const provider = auth.facebook();
+    const { BaseActions, AuthActions } = this.props;
+    const provider = auth.facebook();
 
-      provider.then((result) => {
-        const token = result.credential.accessToken;
-        const user = result.user;
-        console.log(result);
-      }).catch(function(error) {
+    provider.then((result) => {
+      const token = result.credential.accessToken;
+      const user = result.user;
+    }).catch(function(error) {
+      const { code, Message, email, credential } = error;
 
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        const email = error.email;
-        const credential = error.credential;
-        console.log(error);
-      });
+      switch(code) {
+        case 'auth/account-exists-with-different-credential':
+
+          AuthActions.toggleLoginModal();
+          BaseActions.setDimmedVisibility(false);
+          BaseActions.setHelperModalVisibility({
+            'visible': true,
+            email
+          });
+          break;
+      }
+    });
   }
 
   render() {

@@ -1,12 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ModalWrapper } from '../';
-import { Logo, Input, Footer, Separator, SocialButton, SubmitButton } from './';
-
-const Content = styled.div`
-  padding: 1rem;
-  background-color: white;
-`;
+import { Logo, Input, Footer, Separator, SocialButton, SubmitButton, Content } from './';
 
 const LoginModal = ({visible, mode, onChangeMode, onChangeModePassword, onChangeInput, onAuth, onGoogle, onFacebook}) => {
   const modeText = mode === 'login' ? '회원가입' : '로그인';

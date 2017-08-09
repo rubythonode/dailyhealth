@@ -11,6 +11,7 @@ import Dimmed from './Common/Dimmed';
 // Modal
 
 import LoginModal from './Modal/LoginModal';
+import HelperModal from './Modal/HelperModal';
 
 export {
   App,
@@ -18,5 +19,6 @@ export {
   Wrapper,
   ModalWrapper,
   Dimmed,
-  LoginModal
+  LoginModal,
+  HelperModal
 }
