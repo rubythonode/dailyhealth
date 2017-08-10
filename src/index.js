@@ -16,8 +16,12 @@ import firebaseConfig from './config/firebase';
 /* alertify */
 import alertify from 'alertifyjs';
 
+import 'react-mdl/extra/material.css';
+import 'react-mdl/extra/material.js';
+
 alertify.set('notifier','position', 'top-right');
 firebase.initializeApp(firebaseConfig);
+
 
 ReactDOM.render(
   <Provider store={store}>

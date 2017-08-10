@@ -10,12 +10,13 @@ import { HeaderContainer, LoginModalContainer, DimmedContainer, HelperModalConta
 import auth from '../helpers/firebase/auth';
 import users from '../helpers/firebase/users';
 import * as authActions from '../modules/auth';
-
+import PropTypes from "prop-types";
 class App extends Component {
+
   componentDidMount() {
     const { AuthActions } = this.props;
-    auth.onAuthStateChanged((firebaseuser) => {
 
+    auth.onAuthStateChanged((firebaseuser) => {
       if(firebaseuser) {
         AuthActions.checkLogin(true);
         const { uid, email } = firebaseuser;
@@ -27,6 +28,9 @@ class App extends Component {
 
           }
           AuthActions.petchUserUid(uid);
+          if(user.val().displayname == "") {
+
+          }
           // AuthActions.petchUserInfomation(user.val());
 
 

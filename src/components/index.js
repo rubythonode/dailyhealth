@@ -7,7 +7,6 @@ import Wrapper from './Wrapper/Wrapper';
 // Common
 import ModalWrapper from './Common/ModalWrapper';
 import Dimmed from './Common/Dimmed';
-import Background from './Common/Background';
 import Content from './Common/Content';
 import TabMenu from './Common/TabMenu';
 
@@ -15,6 +14,10 @@ import TabMenu from './Common/TabMenu';
 
 import LoginModal from './Modal/LoginModal';
 import HelperModal from './Modal/HelperModal';
+
+
+// components
+import Background from './Background/Background';
 
 export {
   App,
