@@ -1,52 +1,65 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ModalWrapper } from '../';
-import { Logo, Input, Footer, Separator, SocialButton, SubmitButton, Content } from './';
+import oc from 'open-color';
+import { ModalWrapper, Content, Input, Text, Button, AuthControl } from '../';
+import PropTypes from 'prop-types';
+import GoogleIcon from 'react-icons/lib/fa/google';
+import FacebookIcon from 'react-icons/lib/fa/facebook';
 
-const LoginModal = ({visible, mode, onChangeMode, onChangeModePassword, onChangeInput, onAuth, onGoogle, onFacebook}) => {
-  const modeText = mode === 'login' ? '회원가입' : '로그인';
-  const modeReverseText = mode === 'login' ? '로그인' : '회원가입';
-
-  const login = (
-    <div>
-      <Logo text="Daily Health"/>
-      <Content>
-        <Input type="email" placeholder="이메일을 입력하세요" name="email" onChange={(e) => onChangeInput(e)}/>
-        <Input type="password" placeholder="비밀번호를 입력하세요" name="password" onChange={(e) => onChangeInput(e)}/>
-        <SubmitButton
-          text={modeReverseText}
-          onClick={onAuth}
-          />
-        <Footer modeText={modeText} onChangeMode={onChangeMode} onChangeModePassword={onChangeModePassword}/>
-        <Separator/>
-        <SocialButton
-          onGoogle={onGoogle}
-          onFacebook={onFacebook}
-          />
-      </Content>
-    </div>
-  )
-
-  const findPassword = (
-    <div>
-      <Logo>
-      Daily Health
-      </Logo>
-      <Content>
-        <Input type="email" placeholder="이메일을 입력하세요"/>
-        <SubmitButton text="비밀번호 찾기"/>
-      </Content>
-
-    </div>
-  )
+const LoginModal = ({modalVisible, onTask, task, onAuth, onChangeInput}) => {
+  const Task = task === 'login' ? '로그인' : '회원가입';
+  const ReverseTask = task === 'login' ? '회원가입' : '로그인';
 
   return (
-    <ModalWrapper visible={visible}>
-      {
-        (mode === 'login' || mode === 'register') ? login : findPassword
-      }
+    <ModalWrapper modalVisible={modalVisible}>
+      <Content>
+        <Text textAlign="left" fontSize="1.1rem" color={oc.gray[7]}>이메일로 회원가입</Text>
+        <Input type="email" placeholder="이메일을 입력하세요" name="email" onChange={(e) => onChangeInput(e)}/>
+        <Input type="password" placeholder="비밀번호를 입력하세요" name="password" onChange={(e) => onChangeInput(e)}/>
+        <AuthControl onTask={onTask} ReverseTask={ReverseTask}/>
+        <Button
+          text={Task}
+          backgroundColor={oc.gray[6]}
+          width="100%"
+          HoverbackgroundColor={oc.gray[5]}
+          onClick={() => { onAuth() }}
+          />
+        <Text textAlign="center" fontSize="1rem" color={oc.gray[7]}>또는</Text>
+        <Button
+          text="구글로 로그인"
+          backgroundColor={oc.red[6]}
+          width="100%"
+          HoverbackgroundColor={oc.red[5]}
+          >
+          <GoogleIcon size={20}/>
+        </Button>
+        <Button
+          text="페이스북으로 로그인"
+          backgroundColor={oc.blue[6]}
+          width="100%"
+          HoverbackgroundColor={oc.blue[5]}
+          >
+          <FacebookIcon size={20}/>
+        </Button>
+      </Content>
     </ModalWrapper>
   )
+}
+
+LoginModal.PropTypes = {
+  modalVisible: PropTypes.bol,
+  onTask: PropTypes.func,
+  onAuth: PropTypes.func,
+  onChangeInput: PropTypes.func,
+  task: PropTypes.string
+}
+
+LoginModal.defaultProps = {
+  modalVisible: false,
+  task: '',
+  onTask: () => { console.error('onClick not defined') },
+  onAuth: () => { console.error('onAuth not defined') },
+  onChangeInput: () => { console.error('onChangeInput not defined') }
 }
 
 export default LoginModal;

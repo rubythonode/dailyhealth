@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import oc from 'open-color';
 import PropTypes from 'prop-types';
-
-import { Logo, Sidebar, Auth } from './';
+import { Sidebar, Logo, Nav, Button } from '../';
+import User from 'react-icons/lib/fa/user';
 
 const Wrapper = styled.div`
   /* 색상 */
@@ -15,11 +16,11 @@ const Wrapper = styled.div`
   height: 4rem;
   width: 100%;
 
-  /* 효과 */
+  /* 그림자 */
   box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.2);
 `;
 
-const WrapperHeader = styled.div`
+const Center = styled.div`
   /* 중앙 정렬 */
   margin: 0 auto;
 
@@ -35,25 +36,28 @@ const WrapperHeader = styled.div`
   @media (max-width: 998px) {
     width: 100%;
   }
-
 `;
 
-const Header = ({onLoginButtonClick, login, onLogout}) => (
+const Header = ({children, onLoginModal}) => (
   <Wrapper>
-    <WrapperHeader>
+    <Center>
       <Sidebar/>
       <Logo/>
-      <Auth onLoginButtonClick={onLoginButtonClick} login={login} onLogout={onLogout}/>
-    </WrapperHeader>
+      <Nav>
+        <Button text="로그인 / 회원가입" backgroundColor={oc.gray[7]} onClick={() => { onLoginModal(true) }}>
+          <User size={20}/>
+        </Button>
+      </Nav>
+    </Center>
   </Wrapper>
 );
 
 Header.PropTypes = {
-  onLoginButtonClick: PropTypes.func
+  onLoginModal: PropTypes.func
 }
 
 Header.defaultProps = {
-  onLoginButtonClick: () => { console.error('onLoginButtonClick not defined') }
+  onLoginModal: () => { console.error('onLoginModal not defined') }
 }
 
 export default Header;

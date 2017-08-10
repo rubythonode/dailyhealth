@@ -1,30 +1,40 @@
 // 프로젝트 진입점
 import App from './App';
-// Header
+// components
+import Background from './Background/Background';
 import Header from './Header/Header';
-// Wrapper
-import Wrapper from './Wrapper/Wrapper';
-// Common
-import ModalWrapper from './Common/ModalWrapper';
-import Dimmed from './Common/Dimmed';
-import Background from './Common/Background';
-import Content from './Common/Content';
-import TabMenu from './Common/TabMenu';
-
-// Modal
-
+import Sidebar from './Sidebar/Sidebar';
+import Logo from './Logo/Logo';
+import Nav from './Nav/Nav';
+import Button from './Button/Button';
+import Container from './Container/Container';
+import Content from './Content/Content';
+import Text from './Text/Text';
+import Align from './Align/Align';
+import ModalWrapper from './ModalWrapper/ModalWrapper';
 import LoginModal from './Modal/LoginModal';
-import HelperModal from './Modal/HelperModal';
+import Input from './Input/Input';
+import Float from './Float/Float';
+import AuthControl from './AuthControl/AuthControl';
+import Dimmed from './Dimmed/Dimmed';
 
 export {
   App,
-  Header,
-  Wrapper,
-  ModalWrapper,
-  Dimmed,
-  LoginModal,
-  HelperModal,
+
   Background,
+  Header,
+  Sidebar,
+  Logo,
+  Nav,
+  Button,
+  Container,
   Content,
-  TabMenu
+  Text,
+  Align,
+  ModalWrapper,
+  LoginModal,
+  Input,
+  Float,
+  AuthControl,
+  Dimmed
 }

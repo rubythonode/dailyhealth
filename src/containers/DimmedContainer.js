@@ -1,21 +1,25 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Dimmed } from '../components';
+import PropTypes from 'prop-types';
 
 class DimmedContainer extends Component {
 
   render() {
-    const { Modalvisible, HelperModalvisible } = this.props;
+    const { dimmedVisible, onLoginModal } = this.props;
     return (
-      <Dimmed visible={Modalvisible | HelperModalvisible}/>
+      <Dimmed dimmedVisible={dimmedVisible} onLoginModal={onLoginModal}/>
     );
   }
-
 }
 
-export default connect(
-  (state) => ({
-    Modalvisible: state.base.getIn(['dimmed', 'visible']),
-    HelperModalvisible: state.base.getIn(['helperModal', 'visible'])
-  })
-)(DimmedContainer);
+DimmedContainer.PropTypes = {
+  dimmedVisible: PropTypes.bol,
+  onLoginModal: PropTypes.func
+}
+
+DimmedContainer.defaultProps = {
+  dimmedVisible: false,
+  onLoginModal: () => { console.error('onLoginModal not defined') }
+}
+
+export default DimmedContainer;
