@@ -58,6 +58,7 @@ const StyledItem = styled.div`
 const Bar = styled.div`
     /* 레이아웃 */
     position: absolute;
+    left: 0px;
     bottom: 0px;
     height: 3px;
     width: 50%;

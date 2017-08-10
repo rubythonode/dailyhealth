@@ -13,24 +13,33 @@ import * as authActions from '../modules/auth';
 
 class App extends Component {
   componentDidMount() {
-
+    const { AuthActions } = this.props;
     auth.onAuthStateChanged((firebaseuser) => {
-      const { AuthActions } = this.props;
+
       if(firebaseuser) {
         AuthActions.checkLogin(true);
-        console.log('로그인')
+        const { uid, email } = firebaseuser;
+
         users.findUserById(firebaseuser.uid).then((user) => {
           if(!user.exists()) {
             // 유저가 존재한다!
             users.createUserData(firebaseuser);
+
           }
+          AuthActions.petchUserUid(uid);
+          // AuthActions.petchUserInfomation(user.val());
+
+
         })
       } else {
-        console.log('로그인이 안된 상태')
         AuthActions.checkLogin(false);
       }
+
+
     });
+
   }
+
   render() {
     return (
       <Router>
@@ -49,7 +58,6 @@ class App extends Component {
 
 export default connect(
   (state) => ({
-
   }),
   (dispatch) => ({
     AuthActions: bindActionCreators(authActions, dispatch)

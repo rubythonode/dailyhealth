@@ -14,7 +14,6 @@ import auth from '../helpers/firebase/auth';
 class LoginModalContainer extends Component {
   componentDidMount() {
       window.addEventListener("keydown", this.handleKeyDown);
-      console.log(this.props.history);
   }
 
   componentWillUnMount() {

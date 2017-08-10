@@ -5,6 +5,8 @@ import { Input, SubmitButton } from '../../Modal';
 import * as authActions  from '../../../modules/auth';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import users from '../../../helpers/firebase/users';
+import { withRouter } from 'react-router-dom';
 
 const Wrapper = styled.div`
   padding: 1rem;
@@ -16,20 +18,31 @@ class AckDisplayName extends Component {
   handleChange = (e) => {
     const { AuthActions } = this.props;
 
-    console.log(e.target.value);
-
     AuthActions.changeDisplayName(e.target.value)
+  }
+
+  handleClick = () => {
+    const { displayname, uid, history } = this.props;
+
+    if(displayname.length === 0) {
+      alert('닉네임을 필수 입력해주세요!');
+    }
+
+    users.pushDisplayName(uid, displayname);
+    history.push('/');
+
   }
 
   render() {
     const {
-      handleChange
+      handleChange,
+      handleClick
     } = this;
     const { displayname } = this.props;
     return (
       <Wrapper>
-        <Input value={displayname} placeholder="별명을 정해주세요" onChange={(e) => handleChange(e)}/>
-        <SubmitButton text="시작하기"/>
+        <Input value={displayname} placeholder="닉네임을 정해주세요" onChange={(e) => handleChange(e)}/>
+        <SubmitButton onClick={handleClick} text="시작하기"/>
       </Wrapper>
     );
   }
@@ -37,9 +50,10 @@ class AckDisplayName extends Component {
 
 export default connect(
   (state) => ({
-    displayname: state.auth.get('displayname')
+    displayname: state.auth.get('displayname'),
+    uid: state.auth.get('uid')
   }),
   (dispatch) => ({
     AuthActions: bindActionCreators(authActions, dispatch)
   })
-)(AckDisplayName);
+)(withRouter(AckDisplayName));
