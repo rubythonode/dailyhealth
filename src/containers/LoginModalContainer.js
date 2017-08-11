@@ -11,7 +11,8 @@ class LoginModalContainer extends Component {
       task,
       onAuth,
       onChangeInput,
-      onGoogleLogin
+      onGoogleLogin,
+      onFacebookLogin
     } = this.props;
     return (
       <LoginModal
@@ -21,6 +22,7 @@ class LoginModalContainer extends Component {
         onAuth={onAuth}
         onChangeInput={onChangeInput}
         onGoogleLogin={onGoogleLogin}
+        onFacebookLogin={onFacebookLogin}
         />
     );
   }
@@ -32,6 +34,7 @@ LoginModalContainer.PropTypes = {
   onAuth: PropTypes.func,
   onChangeInput: PropTypes.func,
   onGoogleLogin: PropTypes.func,
+  onFacebookLogin: PropTypes.func,
   task: PropTypes.string
 }
 
@@ -41,7 +44,8 @@ LoginModalContainer.defaultProps = {
   onTask: () => { console.error('onTask not defined') },
   onAuth: () => { console.error('onAuth not defined') },
   onChangeInput: () => { console.error('onChangeInput not defined') },
-  onGoogleLogin: () => { console.error('onGoogleLogin not defined') }
+  onGoogleLogin: () => { console.error('onGoogleLogin not defined') },
+  onFacebookLogin: () => { console.error('onFacebookLogin not defined') }
 }
 
 export default LoginModalContainer;

@@ -118,9 +118,10 @@ class App extends Component {
 
   // oauth
   // google login
-
+  /*
+    oauth 로그인 부분 소스코드 중복 확인 리팩토링 예정
+  */
   handaleGoogleLogin = () => {
-    const { BaseActions, AuthActions } = this.props;
 
     const promise = auth.google();
 
@@ -140,6 +141,33 @@ class App extends Component {
         // 동일한 이메일로 이미 가입한 계정이 있다면
         case 'auth/account-exists-with-different-credential':
           // 로그인 모달을 닫는다
+          console.log('충돌이 일어났습니다.');
+          this.handleLoginModal(false);
+          break;
+      }
+    })
+  }
+
+  handleFacebookLogin = () => {
+    const promise = auth.facebook();
+
+    promise.then((user) => {
+      // 정상적으로 승인이 되었다면
+      if(user) {
+        alertify.success('로그인에 성공했어요!');
+        // 모달 닫기
+        this.handleLoginModal(false);
+      }
+    }).catch((error) => {
+      // 에러 핸들링
+      const { code } = error;
+
+      // code에 따른 오류 제어 분기
+      switch(code) {
+        // 동일한 이메일로 이미 가입한 계정이 있다면
+        case 'auth/account-exists-with-different-credential':
+          // 로그인 모달을 닫는다
+          console.log('충돌이 일어났습니다.');
           this.handleLoginModal(false);
           break;
       }
@@ -160,7 +188,8 @@ class App extends Component {
       handleTask,
       handleAuth,
       handleChangeInput,
-      handaleGoogleLogin
+      handaleGoogleLogin,
+      handleFacebookLogin
     } = this;
 
     return (
@@ -178,6 +207,7 @@ class App extends Component {
             onAuth={handleAuth}
             onChangeInput={handleChangeInput}
             onGoogleLogin={handaleGoogleLogin}
+            onFacebookLogin={handleFacebookLogin}
             />
           <DimmedContainer
             dimmedVisible={dimmedVisible}

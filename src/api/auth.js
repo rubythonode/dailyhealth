@@ -11,7 +11,6 @@ const auth = {
     const provider = firebase.auth().signInWithEmailAndPassword(email, password);
     return provider;
   },
-
   // 실시간 리스너
   onAuthStateChanged: (callback) => {
     const provider = firebase.auth().onAuthStateChanged(callback);
@@ -20,6 +19,11 @@ const auth = {
   // 구글 로그인
   google: () => {
     const provider = new firebase.auth.GoogleAuthProvider();
+    return firebase.auth().signInWithPopup(provider)
+  },
+  // 페이스북 로그인
+  facebook: () => {
+    const provider = new firebase.auth.FacebookAuthProvider();
     return firebase.auth().signInWithPopup(provider)
   }
 }

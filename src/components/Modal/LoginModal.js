@@ -12,7 +12,8 @@ const LoginModal = ({
   task,
   onAuth,
   onChangeInput,
-  onGoogleLogin
+  onGoogleLogin,
+  onFacebookLogin
 }) => {
   const Task = task === 'login' ? '로그인' : '회원가입';
   const ReverseTask = task === 'login' ? '회원가입' : '로그인';
@@ -46,6 +47,7 @@ const LoginModal = ({
           backgroundColor={oc.blue[6]}
           width="100%"
           HoverbackgroundColor={oc.blue[5]}
+          onClick={() => { onFacebookLogin() }}
           >
           <FacebookIcon size={20}/>
         </Button>
@@ -60,6 +62,7 @@ LoginModal.PropTypes = {
   onAuth: PropTypes.func,
   onChangeInput: PropTypes.func,
   onGoogleLogin: PropTypes.func,
+  onFacebookLogin: PropTypes.func,
   task: PropTypes.string
 }
 
@@ -69,7 +72,8 @@ LoginModal.defaultProps = {
   onTask: () => { console.error('onClick not defined') },
   onAuth: () => { console.error('onAuth not defined') },
   onChangeInput: () => { console.error('onChangeInput not defined') },
-  onGoogleLogin: () => { console.error('onGoogleLogin not defined') }
+  onGoogleLogin: () => { console.error('onGoogleLogin not defined') },
+  onFacebookLogin: () => { console.error('onFacebookLogin not defined') }
 }
 
 export default LoginModal;
