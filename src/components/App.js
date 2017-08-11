@@ -110,11 +110,40 @@ class App extends Component {
   }
 
   // 이메일과 비밀번호 키보드 입력시마다 변경
-
   handleChangeInput = (e) => {
     const { AuthActions } = this.props;
     const { name, value } = e.target;
     AuthActions.changeInput({name, value})
+  }
+
+  // oauth
+  // google login
+
+  handaleGoogleLogin = () => {
+    const { BaseActions, AuthActions } = this.props;
+
+    const promise = auth.google();
+
+    promise.then((user) => {
+      // 정상적으로 승인이 되었다면
+      if(user) {
+        alertify.success('로그인에 성공했어요!');
+        // 모달 닫기
+        this.handleLoginModal(false);
+      }
+    }).catch((error) => {
+      // 에러 핸들링
+      const { code } = error;
+
+      // code에 따른 오류 제어 분기
+      switch(code) {
+        // 동일한 이메일로 이미 가입한 계정이 있다면
+        case 'auth/account-exists-with-different-credential':
+          // 로그인 모달을 닫는다
+          this.handleLoginModal(false);
+          break;
+      }
+    })
   }
 
   render() {
@@ -130,7 +159,8 @@ class App extends Component {
       handleLoginModal,
       handleTask,
       handleAuth,
-      handleChangeInput
+      handleChangeInput,
+      handaleGoogleLogin
     } = this;
 
     return (
@@ -147,6 +177,7 @@ class App extends Component {
             task={task}
             onAuth={handleAuth}
             onChangeInput={handleChangeInput}
+            onGoogleLogin={handaleGoogleLogin}
             />
           <DimmedContainer
             dimmedVisible={dimmedVisible}

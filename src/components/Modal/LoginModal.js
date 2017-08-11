@@ -6,7 +6,14 @@ import PropTypes from 'prop-types';
 import GoogleIcon from 'react-icons/lib/fa/google';
 import FacebookIcon from 'react-icons/lib/fa/facebook';
 
-const LoginModal = ({modalVisible, onTask, task, onAuth, onChangeInput}) => {
+const LoginModal = ({
+  modalVisible,
+  onTask,
+  task,
+  onAuth,
+  onChangeInput,
+  onGoogleLogin
+}) => {
   const Task = task === 'login' ? '로그인' : '회원가입';
   const ReverseTask = task === 'login' ? '회원가입' : '로그인';
 
@@ -30,6 +37,7 @@ const LoginModal = ({modalVisible, onTask, task, onAuth, onChangeInput}) => {
           backgroundColor={oc.red[6]}
           width="100%"
           HoverbackgroundColor={oc.red[5]}
+          onClick={() => { onGoogleLogin() }}
           >
           <GoogleIcon size={20}/>
         </Button>
@@ -51,6 +59,7 @@ LoginModal.PropTypes = {
   onTask: PropTypes.func,
   onAuth: PropTypes.func,
   onChangeInput: PropTypes.func,
+  onGoogleLogin: PropTypes.func,
   task: PropTypes.string
 }
 
@@ -59,7 +68,8 @@ LoginModal.defaultProps = {
   task: '',
   onTask: () => { console.error('onClick not defined') },
   onAuth: () => { console.error('onAuth not defined') },
-  onChangeInput: () => { console.error('onChangeInput not defined') }
+  onChangeInput: () => { console.error('onChangeInput not defined') },
+  onGoogleLogin: () => { console.error('onGoogleLogin not defined') }
 }
 
 export default LoginModal;

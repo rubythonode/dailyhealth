@@ -5,9 +5,23 @@ import PropTypes from 'prop-types';
 class LoginModalContainer extends Component {
 
   render() {
-    const { modalVisible, onTask, task, onAuth, onChangeInput } = this.props;
+    const {
+      modalVisible,
+      onTask,
+      task,
+      onAuth,
+      onChangeInput,
+      onGoogleLogin
+    } = this.props;
     return (
-      <LoginModal modalVisible={modalVisible} onTask={onTask} task={task} onAuth={onAuth} onChangeInput={onChangeInput}/>
+      <LoginModal
+        modalVisible={modalVisible}
+        onTask={onTask}
+        task={task}
+        onAuth={onAuth}
+        onChangeInput={onChangeInput}
+        onGoogleLogin={onGoogleLogin}
+        />
     );
   }
 }
@@ -17,6 +31,7 @@ LoginModalContainer.PropTypes = {
   onTask: PropTypes.func,
   onAuth: PropTypes.func,
   onChangeInput: PropTypes.func,
+  onGoogleLogin: PropTypes.func,
   task: PropTypes.string
 }
 
@@ -25,7 +40,8 @@ LoginModalContainer.defaultProps = {
   task: '',
   onTask: () => { console.error('onTask not defined') },
   onAuth: () => { console.error('onAuth not defined') },
-  onChangeInput: () => { console.error('onChangeInput not defined') }
+  onChangeInput: () => { console.error('onChangeInput not defined') },
+  onGoogleLogin: () => { console.error('onGoogleLogin not defined') }
 }
 
 export default LoginModalContainer;
