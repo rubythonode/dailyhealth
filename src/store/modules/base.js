@@ -14,7 +14,7 @@ const initialState = Map({
   dimmed: Map({
     visible: false
   }),
-  modal: Map({
+  loginmodal: Map({
     visible: false,
     task: 'login'
   }),
@@ -26,9 +26,9 @@ export default handleActions({
     return state.setIn(['dimmed', 'visible'], action.payload);
   },
   [SET_MODAL_VISIBILITY]: (state, action) => {
-    return state.setIn(['modal', 'visible'], action.payload);
+    return state.setIn(['loginmodal', 'visible'], action.payload);
   },
   [SET_TOGGLE_USER_TASK]: (state, action) => {
-    return state.setIn(['modal', 'task'], action.payload);
+    return state.setIn(['loginmodal', 'task'], action.payload);
   }
 }, initialState);

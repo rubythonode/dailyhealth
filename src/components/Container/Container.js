@@ -1,7 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import oc from 'open-color';
-import PropTypes from 'prop-types';
 
 
 const Wrapper = styled.div`
@@ -14,7 +12,7 @@ const Wrapper = styled.div`
   /* 패딩 및 마진 */
   padding-top: 5rem;
 
-  
+
 `;
 
 const Container = ({children}) => (
@@ -23,12 +21,5 @@ const Container = ({children}) => (
   </Wrapper>
 );
 
-Container.PropTypes = {
-
-}
-
-Container.defaultProps = {
-
-}
 
 export default Container;

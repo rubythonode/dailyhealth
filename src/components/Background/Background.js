@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import oc from 'open-color';
 import { Content, Text, Button, Align } from '../';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 const Wrapper = styled.div`
@@ -41,12 +40,5 @@ const Background = () => (
   </Wrapper>
 );
 
-Background.PropTypes = {
-
-}
-
-Background.defaultProps = {
-
-}
 
 export default Background;

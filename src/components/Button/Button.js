@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import oc from 'open-color';
 import PropTypes from 'prop-types';
 
 const Wrapper = styled.div`
@@ -69,7 +68,6 @@ Button.PropTypes = {
   width: PropTypes.string,
   size: PropTypes.string,
   HoverbackgroundColor: PropTypes.string,
-  width: PropTypes.string,
   onClick: PropTypes.func
 }
 
@@ -79,7 +77,6 @@ Button.defaultProps = {
   width: '',
   size: '1rem',
   HoverbackgroundColor: '#d6336c',
-  width: '',
   onClick: () => { console.error('onClick not defined') }
 }
 

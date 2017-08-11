@@ -78,6 +78,8 @@ class App extends Component {
          case 'auth/wrong-password':
            alertify.error('비밀번호가 잘못되었거나 맞지 않아요!');
            break;
+         default:
+          console.log('해당되는 code 없습니다')
         }
       })
     } else {
@@ -104,6 +106,8 @@ class App extends Component {
           case 'auth/email-already-in-use':
             alertify.error('이미 존재하는 이메일이예요!');
 						break;
+          default:
+           console.log('해당되는 code 없습니다')
         }
       })
     }
@@ -144,6 +148,8 @@ class App extends Component {
           console.log('충돌이 일어났습니다.');
           this.handleLoginModal(false);
           break;
+        default:
+         console.log('해당되는 code 없습니다')
       }
     })
   }
@@ -170,6 +176,8 @@ class App extends Component {
           console.log('충돌이 일어났습니다.');
           this.handleLoginModal(false);
           break;
+        default:
+         console.log('해당되는 code 없습니다')
       }
     })
   }
@@ -221,8 +229,8 @@ class App extends Component {
 
 export default connect(
   (state) => ({
-    modalVisible: state.base.getIn(['modal', 'visible']),
-    task: state.base.getIn(['modal', 'task']),
+    modalVisible: state.base.getIn(['loginmodal', 'visible']),
+    task: state.base.getIn(['loginmodal', 'task']),
     dimmedVisible: state.base.getIn(['dimmed', 'visible']),
     form: state.auth.get('form')
   }),

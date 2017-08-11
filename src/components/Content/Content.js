@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import oc from 'open-color';
 import PropTypes from 'prop-types';
 
 const Wrapper = styled.div`
 
   /* 크기 */
   width: ${(props) => props.width};
-  
+
   /* 색상 */
   background-color: white;
 

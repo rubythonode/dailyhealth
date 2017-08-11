@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import oc from 'open-color';
 import { ModalWrapper, Content, Input, Text, Button, AuthControl } from '../';
 import PropTypes from 'prop-types';
