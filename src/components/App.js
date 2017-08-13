@@ -3,25 +3,52 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import alertify from 'alertifyjs';
-
+import PropTypes from 'prop-types';
 import * as baseActions from '../store/modules/base';
 import * as authActions from '../store/modules/auth';
 import { HomePage, DailyPage } from './Page';
 import { HeaderContainer, LoginModalContainer, AccountExistModalContainer, DimmedContainer } from '../containers';
 import auth from '../api/auth';
-
+import users from '../api/users';
 
 class App extends Component {
+
   componentDidMount() {
     const { AuthActions } = this.props;
     // 실시간 리스너 감지
     auth.onAuthStateChanged((firebaseUser) => {
+
       // 만약에 로그인 중이라면
       if(firebaseUser) {
-        // 로그인 상태
-        AuthActions.changeUserStatus(true);
+
+
+        users.findUserById(firebaseUser.uid).then((user) => {
+          console.log(user.val());
+
+          if(user.val() != null) {
+            if(user.val().displayName === undefined) {
+              AuthActions.changeLoginStatus(true);
+              alertify.error('별명을 설정하세요!');
+            }
+          }
+
+          if(!user.exists()) {
+            users.createUserData(firebaseUser);
+          }
+        })
+
+        AuthActions.changeUserStatus({
+          'status': true,
+          'uid': firebaseUser.uid
+        });
+
+
       } else {
         console.log('로그인중이 아니네')
+        AuthActions.changeUserStatus({
+          'status':false,
+          'uid': ''
+        });
       }
     })
 
@@ -70,7 +97,7 @@ class App extends Component {
 
   // task에 따라 이메일과 패스워드 인증 토글 가입 및 로그인
   handleAuth = () => {
-    const { task, form } = this.props;
+    const { task, form, AuthActions } = this.props;
     const { email, password } = form.toJS();
     if(task === 'login') {
       const promise = auth.signInWithEmailAndPassword(email, password);
@@ -103,6 +130,10 @@ class App extends Component {
         if(user.uid) {
           // 모달 닫기
           alertify.success('추가 정보를 입력해주세요!');
+
+
+          // 추가 정보를 받기 위한 background 상태 변화
+          AuthActions.changeLoginStatus(true);
           this.handleModal(false);
         }
       }).catch((error) => {
@@ -121,7 +152,7 @@ class App extends Component {
             alertify.error('이미 존재하는 이메일이예요!');
 						break;
           default:
-           console.log('해당되는 code 없습니다')
+           console.log('해당되는 code 없습니다'+error)
         }
       })
     }
@@ -209,9 +240,22 @@ class App extends Component {
     })
   }
 
+  // oauth 상호 연동을 위한 메서드
   handleConnectOauth = (email) => {
     auth.connectOauth(email);
     this.handleModal(false);
+  }
+
+  // 로그아웃
+
+  handleLogout = () => {
+    const { AuthActions } = this.props;
+    auth.logout();
+    AuthActions.changeUserStatus({
+      'status':false,
+      'uid': ''
+    });
+    alertify.success('로그아웃에 성공했어요!');
   }
 
   render() {
@@ -222,7 +266,8 @@ class App extends Component {
       dimmedVisible,
       task,
       email,
-      status
+      status,
+      loginstatus
     } = this.props;
 
     // function
@@ -233,7 +278,8 @@ class App extends Component {
       handleChangeInput,
       handaleGoogleLogin,
       handleFacebookLogin,
-      handleConnectOauth
+      handleConnectOauth,
+      handleLogout
     } = this;
 
     return (
@@ -242,6 +288,7 @@ class App extends Component {
           <HeaderContainer
             onModal={handleModal}
             status={status}
+            onLogout={handleLogout}
             />
           <Route exact path="/" component={HomePage} />
           <Route path="/daily" component={DailyPage} />

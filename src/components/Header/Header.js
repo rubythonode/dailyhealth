@@ -4,6 +4,7 @@ import oc from 'open-color';
 import PropTypes from 'prop-types';
 import { Sidebar, Logo, Nav, Button } from '../';
 import User from 'react-icons/lib/fa/user';
+import { Menu, MenuItem } from 'react-mdl';
 
 const Wrapper = styled.div`
   /* 색상 */
@@ -38,17 +39,26 @@ const Center = styled.div`
   }
 `;
 
-const Header = ({children, onModal, status}) => {
+const Header = ({children, onModal, status, onLogout}) => {
 
   // 로그인 상태라면
   const login = (
-    <User size={40} color="white" style={{
-        'backgroundColor': oc.pink[6],
-        'borderRadius': '2rem',
-        'padding': '0.5rem',
-        'cursor': 'pointer',
-        'marginTop': '0.6rem'
-      }} />
+      <div style={{position: 'relative'}}>
+          <User size={40} color="white"
+            name="more_vert"
+            id="demo-menu-lower-left"
+            style={{
+            'backgroundColor': oc.pink[6],
+            'borderRadius': '2rem',
+            'padding': '0.5rem',
+            'cursor': 'pointer',
+            'marginTop': '0.6rem'
+            }} />
+          <Menu target="demo-menu-lower-left" align="right">
+              <MenuItem>마이 페이지</MenuItem>
+              <MenuItem onClick={() => { onLogout() }}>로그아웃</MenuItem>
+          </Menu>
+      </div>
   );
 
   // 로그인 상태가 아니라면
@@ -73,11 +83,13 @@ const Header = ({children, onModal, status}) => {
 
 Header.PropTypes = {
   onModal: PropTypes.func,
+  onLogout: PropTypes.func,
   status: PropTypes.bol
 }
 
 Header.defaultProps = {
   status: false,
+  onLogout: () => { console.error('onLogout not defined') },
   onModal: () => { console.error('onModal not defined') }
 }
 

@@ -51,6 +51,7 @@ const auth = (function() {
         })
 
       },
+      // 로그아웃
       logout: () => {
         return firebase.auth().signOut();
       }
