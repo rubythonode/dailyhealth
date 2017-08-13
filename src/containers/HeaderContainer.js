@@ -8,10 +8,18 @@ class HeaderContainer extends Component {
     const {
       onModal,
       onLogout,
-      status
+      status,
+      color,
+      onSliderNav
     } = this.props;
     return (
-      <Header onModal={onModal} status={status} onLogout={onLogout}/>
+      <Header
+        onModal={onModal}
+        status={status}
+        onLogout={onLogout}
+        color={color}
+        onSliderNav={onSliderNav}
+      />
     );
   }
 
@@ -20,13 +28,17 @@ class HeaderContainer extends Component {
 HeaderContainer.PropTypes = {
   onModal: PropTypes.func,
   onLogout: PropTypes.func,
-  status: PropTypes.bol
+  status: PropTypes.bol,
+  color: PropTypes.string,
+  onSliderNav: PropTypes.func
 }
 
 HeaderContainer.defaultProps = {
   status: false,
+  color: '#fff',
   onLogout: () => { console.error('onLogout not defined') },
-  onModal: () => { console.error('onModal not defined') }
+  onModal: () => { console.error('onModal not defined') },
+  onSliderNav: () => { console.error('onSliderNav not defined') },
 }
 
 export default HeaderContainer;

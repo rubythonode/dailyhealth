@@ -19,6 +19,7 @@ import Input from './Input/Input';
 import Float from './Float/Float';
 import AuthControl from './AuthControl/AuthControl';
 import Dimmed from './Dimmed/Dimmed';
+import SliderNav from './Nav/SliderNav';
 
 export {
   App,
@@ -40,5 +41,6 @@ export {
   Input,
   Float,
   AuthControl,
-  Dimmed
+  Dimmed,
+  SliderNav
 }

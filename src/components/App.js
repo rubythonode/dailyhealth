@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import * as baseActions from '../store/modules/base';
 import * as authActions from '../store/modules/auth';
 import { HomePage, DailyPage } from './Page';
-import { HeaderContainer, LoginModalContainer, AccountExistModalContainer, DimmedContainer } from '../containers';
+import { HeaderContainer, LoginModalContainer, AccountExistModalContainer, DimmedContainer, SliderNavContainer } from '../containers';
 import auth from '../api/auth';
 import users from '../api/users';
 
@@ -17,19 +17,20 @@ class App extends Component {
     const { AuthActions } = this.props;
     // 실시간 리스너 감지
     auth.onAuthStateChanged((firebaseUser) => {
-
+      AuthActions.setUserColor('#fff');
       // 만약에 로그인 중이라면
       if(firebaseUser) {
 
 
         users.findUserById(firebaseUser.uid).then((user) => {
-          console.log(user.val());
 
           if(user.val() != null) {
             if(user.val().displayName === undefined) {
               AuthActions.changeLoginStatus(true);
               alertify.error('별명을 설정하세요!');
             }
+
+            AuthActions.setUserColor(user.val().color);
           }
 
           if(!user.exists()) {
@@ -131,7 +132,6 @@ class App extends Component {
           // 모달 닫기
           alertify.success('추가 정보를 입력해주세요!');
 
-
           // 추가 정보를 받기 위한 background 상태 변화
           AuthActions.changeLoginStatus(true);
           this.handleModal(false);
@@ -174,10 +174,11 @@ class App extends Component {
 
     const promise = auth.google();
 
-    promise.then((user) => {
+    promise.then((firebaseUser) => {
       // 정상적으로 승인이 되었다면
-      if(user) {
+      if(firebaseUser) {
         alertify.success('로그인에 성공했어요!');
+
         // 모달 닫기
         this.handleModal(false);
       }
@@ -258,6 +259,14 @@ class App extends Component {
     alertify.success('로그아웃에 성공했어요!');
   }
 
+  // 슬라이드 네비게이션 핸들러
+
+  handleSliderNav = () => {
+    const { BaseActions } = this.props;
+    BaseActions.setSliderNavVisibility(true);
+    BaseActions.setDimmedVisibility(true);
+  }
+
   render() {
     // props
     const {
@@ -267,7 +276,9 @@ class App extends Component {
       task,
       email,
       status,
-      loginstatus
+      loginstatus,
+      color,
+      slidernavVisible
     } = this.props;
 
     // function
@@ -279,7 +290,8 @@ class App extends Component {
       handaleGoogleLogin,
       handleFacebookLogin,
       handleConnectOauth,
-      handleLogout
+      handleLogout,
+      handleSliderNav
     } = this;
 
     return (
@@ -289,7 +301,12 @@ class App extends Component {
             onModal={handleModal}
             status={status}
             onLogout={handleLogout}
+            color={color}
+            onSliderNav={handleSliderNav}
             />
+          <SliderNavContainer
+            slidernavVisible={slidernavVisible}
+          />
           <Route exact path="/" component={HomePage} />
           <Route path="/daily" component={DailyPage} />
           <AccountExistModalContainer
@@ -307,7 +324,6 @@ class App extends Component {
             onGoogleLogin={handaleGoogleLogin}
             onFacebookLogin={handleFacebookLogin}
             />
-
           <DimmedContainer
             dimmedVisible={dimmedVisible}
             onModal={handleModal}
@@ -326,7 +342,9 @@ export default connect(
     email: state.base.getIn(['accountexistmodal', 'email']),
     dimmedVisible: state.base.getIn(['dimmed', 'visible']),
     form: state.auth.get('form'),
-    status: state.auth.getIn(['user', 'status'])
+    status: state.auth.getIn(['user', 'status']),
+    color: state.auth.getIn(['user', 'color']),
+    slidernavVisible: state.base.getIn(['slidernav', 'visible'])
   }),
   (dispatch) => ({
     BaseActions: bindActionCreators(baseActions, dispatch),

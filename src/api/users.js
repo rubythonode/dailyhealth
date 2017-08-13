@@ -1,4 +1,5 @@
 import * as firebase from 'firebase';
+import generateRandomColor from '../helpers/color';
 
 const users = {
   findUserById: (uid) => {
@@ -11,6 +12,7 @@ const users = {
       email,
       providerData,
       photoURL,
+      color: generateRandomColor(),
       displayName
     })
   },

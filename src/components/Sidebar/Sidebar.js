@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import oc from 'open-color';
 import FaAlignJustify from 'react-icons/lib/fa/align-justify';
+import PropTypes from 'prop-types';
 
 const Wrapper = styled.div`
   /* 정렬 */
@@ -33,10 +34,18 @@ const Wrapper = styled.div`
 
 `;
 
-const Sidebar = () => (
-  <Wrapper>
+const Sidebar = ({onSliderNav}) => (
+  <Wrapper onClick={() => { onSliderNav() }}>
     <FaAlignJustify/>
   </Wrapper>
 );
+
+Sidebar.PropTypes = {
+  onSliderNav: PropTypes.func
+}
+
+Sidebar.defaultProps = {
+  onSliderNav: () => { console.error('onSliderNav not defined') }
+}
 
 export default Sidebar;

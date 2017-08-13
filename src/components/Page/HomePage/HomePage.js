@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as authActions from '../../../store/modules/auth';
 import users from '../../../api/users';
-
+import { withRouter } from 'react-router';
 
 class HomePage extends Component {
 
@@ -20,9 +20,15 @@ class HomePage extends Component {
   // 별명 설정
 
   handleCreateDisplayName = () => {
-    const { uid, displayname, AuthActions } = this.props;
+    const { uid, displayname, AuthActions, history } = this.props;
     users.createDisplayName(uid, displayname);
-    AuthActions.changeLoginStatus(false);
+
+    users.findUserById(uid).then((user) => {
+      AuthActions.changeLoginStatus(false);
+      AuthActions.setUserColor(user.val().color);
+      history.push('/daily');
+    });
+
   }
 
   render() {
@@ -56,4 +62,4 @@ export default connect(
   (dispatch) => ({
     AuthActions: bindActionCreators(authActions, dispatch)
   })
-)(HomePage);
+)(withRouter(HomePage));

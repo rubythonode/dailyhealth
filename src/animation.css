@@ -78,3 +78,43 @@
     transform: translateY(100px);
   }
 }
+
+
+
+
+
+
+.slider-enter {
+    animation: slideRight .5s ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+.slider-leave {
+    animation: slideLeft .5s ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes slideRight {
+
+  from {
+    opacity: 0;
+    width: 0;
+  }
+
+  to {
+    opacity: 1;
+    width: 250px;
+  }
+}
+
+@keyframes slideLeft {
+  from {
+    opacity: 1;
+    width: 250px;
+  }
+
+  to {
+    opacity: 0;
+    width: 0;
+  }
+}

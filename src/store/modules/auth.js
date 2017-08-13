@@ -5,11 +5,13 @@ const CHANGE_INPUT = 'auth/CHANGE_INPUT';
 const CHANGE_USER_STSATUS = 'auth/CHANGE_USER_STSATUS';
 const CHAGEN_LOGIN_STATUS = 'auth/CHAGEN_LOGIN_STATUS';
 const CHANGE_DISPLAYNAME = 'auth/CHANGE_DISPLAYNAME';
+const SET_USER_COLOR = 'auth/SET_USER/COLOR';
 
 export const changeInput = createAction(CHANGE_INPUT); // ({name, value})
 export const changeUserStatus = createAction(CHANGE_USER_STSATUS); // (status)
 export const changeLoginStatus = createAction(CHAGEN_LOGIN_STATUS); // (status)
 export const changeDisplayName = createAction(CHANGE_DISPLAYNAME); // (displayname)
+export const setUserColor = createAction(SET_USER_COLOR); // (color)
 
 const initialState = Map({
   form: Map({
@@ -18,11 +20,12 @@ const initialState = Map({
   }),
   user: Map({
     status: true, // 로그인 상태
-    uid: ''
+    uid: '',
+    color: ''
   }),
   login: Map({
     status: false,
-    displayname: ''
+    displayname: '#e64980'
   })
 });
 
@@ -40,5 +43,8 @@ export default handleActions({
   },
   [CHANGE_DISPLAYNAME]: (state, action) => {
     return state.setIn(['login', 'displayname'], action.payload);
+  },
+  [SET_USER_COLOR]: (state, action) => {
+    return state.setIn(['user', 'color'], action.payload);
   }
 }, initialState)

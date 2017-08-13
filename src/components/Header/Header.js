@@ -39,8 +39,14 @@ const Center = styled.div`
   }
 `;
 
-const Header = ({children, onModal, status, onLogout}) => {
-
+const Header = ({
+  children,
+  onModal,
+  status,
+  onLogout,
+  color,
+  onSliderNav
+}) => {
   // 로그인 상태라면
   const login = (
       <div style={{position: 'relative'}}>
@@ -48,7 +54,7 @@ const Header = ({children, onModal, status, onLogout}) => {
             name="more_vert"
             id="demo-menu-lower-left"
             style={{
-            'backgroundColor': oc.pink[6],
+            'backgroundColor': color,
             'borderRadius': '2rem',
             'padding': '0.5rem',
             'cursor': 'pointer',
@@ -71,7 +77,7 @@ const Header = ({children, onModal, status, onLogout}) => {
   return (
     <Wrapper>
       <Center>
-        <Sidebar/>
+        <Sidebar onSliderNav={onSliderNav}/>
         <Logo/>
         <Nav>
           { status === true ? login : Notlogin }
@@ -84,13 +90,17 @@ const Header = ({children, onModal, status, onLogout}) => {
 Header.PropTypes = {
   onModal: PropTypes.func,
   onLogout: PropTypes.func,
-  status: PropTypes.bol
+  status: PropTypes.bol,
+  color: PropTypes.string,
+  onSliderNav: PropTypes.func
 }
 
 Header.defaultProps = {
   status: false,
+  color: '#fff',
   onLogout: () => { console.error('onLogout not defined') },
-  onModal: () => { console.error('onModal not defined') }
+  onModal: () => { console.error('onModal not defined') },
+  onSliderNav: () => { console.error('onSliderNav not defined') }
 }
 
 export default Header;
