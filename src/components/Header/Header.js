@@ -38,25 +38,46 @@ const Center = styled.div`
   }
 `;
 
-const Header = ({children, onModal}) => (
-  <Wrapper>
-    <Center>
-      <Sidebar/>
-      <Logo/>
-      <Nav>
-        <Button text="로그인 / 회원가입" backgroundColor={oc.gray[7]} onClick={() => { onModal(true) }}>
-          <User size={20}/>
-        </Button>
-      </Nav>
-    </Center>
-  </Wrapper>
-);
+const Header = ({children, onModal, status}) => {
+
+  // 로그인 상태라면
+  const login = (
+    <User size={40} color="white" style={{
+        'backgroundColor': oc.pink[6],
+        'borderRadius': '2rem',
+        'padding': '0.5rem',
+        'cursor': 'pointer',
+        'marginTop': '0.6rem'
+      }} />
+  );
+
+  // 로그인 상태가 아니라면
+  const Notlogin = (
+    <Button text="로그인 / 회원가입" backgroundColor={oc.gray[7]} onClick={() => { onModal(true) }}>
+      <User size={20}/>
+    </Button>
+  );
+
+  return (
+    <Wrapper>
+      <Center>
+        <Sidebar/>
+        <Logo/>
+        <Nav>
+          { status === true ? login : Notlogin }
+        </Nav>
+      </Center>
+    </Wrapper>
+  )
+};
 
 Header.PropTypes = {
-  onModal: PropTypes.func
+  onModal: PropTypes.func,
+  status: PropTypes.bol
 }
 
 Header.defaultProps = {
+  status: false,
   onModal: () => { console.error('onModal not defined') }
 }
 

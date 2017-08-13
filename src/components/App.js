@@ -13,11 +13,13 @@ import auth from '../api/auth';
 
 class App extends Component {
   componentDidMount() {
+    const { AuthActions } = this.props;
     // 실시간 리스너 감지
     auth.onAuthStateChanged((firebaseUser) => {
       // 만약에 로그인 중이라면
       if(firebaseUser) {
-        console.log('로그인중입니다');
+        // 로그인 상태
+        AuthActions.changeUserStatus(true);
       } else {
         console.log('로그인중이 아니네')
       }
@@ -219,7 +221,8 @@ class App extends Component {
       accountExistModalVisible,
       dimmedVisible,
       task,
-      email
+      email,
+      status
     } = this.props;
 
     // function
@@ -238,6 +241,7 @@ class App extends Component {
         <div>
           <HeaderContainer
             onModal={handleModal}
+            status={status}
             />
           <Route exact path="/" component={HomePage} />
           <Route path="/daily" component={DailyPage} />
@@ -274,7 +278,8 @@ export default connect(
     task: state.base.getIn(['loginmodal', 'task']),
     email: state.base.getIn(['accountexistmodal', 'email']),
     dimmedVisible: state.base.getIn(['dimmed', 'visible']),
-    form: state.auth.get('form')
+    form: state.auth.get('form'),
+    status: state.auth.getIn(['user', 'status'])
   }),
   (dispatch) => ({
     BaseActions: bindActionCreators(baseActions, dispatch),

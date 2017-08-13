@@ -6,20 +6,23 @@ class HeaderContainer extends Component {
 
   render() {
     const {
-      onModal
+      onModal,
+      status
     } = this.props;
     return (
-      <Header onModal={onModal}/>
+      <Header onModal={onModal} status={status}/>
     );
   }
 
 }
 
 HeaderContainer.PropTypes = {
-  onModal: PropTypes.func
+  onModal: PropTypes.func,
+  status: PropTypes.bol
 }
 
 HeaderContainer.defaultProps = {
+  status: false,
   onModal: () => { console.error('onModal not defined') }
 }
 
