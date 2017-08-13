@@ -7,7 +7,7 @@ import alertify from 'alertifyjs';
 import * as baseActions from '../store/modules/base';
 import * as authActions from '../store/modules/auth';
 import { HomePage, DailyPage } from './Page';
-import { HeaderContainer, LoginModalContainer, DimmedContainer } from '../containers';
+import { HeaderContainer, LoginModalContainer, AccountExistModalContainer, DimmedContainer } from '../containers';
 import auth from '../api/auth';
 
 
@@ -33,17 +33,29 @@ class App extends Component {
 
 
   // 모달 열기 또는 닫기
-  handleLoginModal = (boolean) => {
+  handleModal = (boolean) => {
     const { BaseActions } = this.props;
     BaseActions.setDimmedVisibility(boolean);
     BaseActions.setModalVisibility(boolean);
+    BaseActions.setAccountExistModalVisibility(boolean, '');
+  }
+
+  // oauth 가입시 이메일 중복으로 충돌시 출력되는 모달 핸들링 함수
+  handleAccountExistModal = (boolean, email) => {
+    const { BaseActions } = this.props;
+    BaseActions.setDimmedVisibility(boolean);
+    BaseActions.setAccountExistModalVisibility({
+      'visible':boolean,
+      email
+    });
   }
 
   // esc 버튼 누르면 모달 다운
   handleKeyDown = (e) => {
     // ESC 키 코드
     if(e.keyCode === 27) {
-      this.handleLoginModal(false);
+      this.handleModal(false);
+      this.handleAccountExistModal(false, '');
     }
   }
 
@@ -65,7 +77,7 @@ class App extends Component {
         // 로그인이 정상적으로 완료되었다면?
         if(user.uid) {
           alertify.success('로그인에 성공했어요!');
-          this.handleLoginModal(false);
+          this.handleModal(false);
         }
       }).catch((error) => {
         switch(error.code) {
@@ -89,7 +101,7 @@ class App extends Component {
         if(user.uid) {
           // 모달 닫기
           alertify.success('추가 정보를 입력해주세요!');
-          this.handleLoginModal(false);
+          this.handleModal(false);
         }
       }).catch((error) => {
         // 상황에 따른 오류처리
@@ -134,22 +146,28 @@ class App extends Component {
       if(user) {
         alertify.success('로그인에 성공했어요!');
         // 모달 닫기
-        this.handleLoginModal(false);
+        this.handleModal(false);
       }
     }).catch((error) => {
       // 에러 핸들링
-      const { code } = error;
+      const { code, email } = error;
 
       // code에 따른 오류 제어 분기
       switch(code) {
         // 동일한 이메일로 이미 가입한 계정이 있다면
         case 'auth/account-exists-with-different-credential':
           // 로그인 모달을 닫는다
-          console.log('충돌이 일어났습니다.');
-          this.handleLoginModal(false);
+          this.handleModal(false);
+          this.handleAccountExistModal(true, email);
+          break;
+        case 'auth/popup-closed-by-user':
+          alertify.error('소셜 로그인을 취소했어요!');
+          break;
+        case 'auth/network-request-failed':
+          alertify.error('네트워크 상황이 좋지 못해요!');
           break;
         default:
-         console.log('해당되는 code 없습니다')
+         console.log('해당되는 code 없습니다'+code)
       }
     })
   }
@@ -162,19 +180,26 @@ class App extends Component {
       if(user) {
         alertify.success('로그인에 성공했어요!');
         // 모달 닫기
-        this.handleLoginModal(false);
+        this.handleModal(false);
       }
     }).catch((error) => {
       // 에러 핸들링
-      const { code } = error;
+      const { code, email } = error;
 
       // code에 따른 오류 제어 분기
       switch(code) {
         // 동일한 이메일로 이미 가입한 계정이 있다면
+
         case 'auth/account-exists-with-different-credential':
           // 로그인 모달을 닫는다
-          console.log('충돌이 일어났습니다.');
-          this.handleLoginModal(false);
+          this.handleModal(false);
+          this.handleAccountExistModal(true, email);
+          break;
+        case 'auth/popup-closed-by-user':
+          alertify.error('소셜 로그인을 취소했어요!');
+          break;
+        case 'auth/network-request-failed':
+          alertify.error('네트워크 상황이 좋지 못해요!');
           break;
         default:
          console.log('해당되는 code 없습니다')
@@ -182,32 +207,46 @@ class App extends Component {
     })
   }
 
+  handleConnectOauth = (email) => {
+    auth.connectOauth(email);
+    this.handleModal(false);
+  }
+
   render() {
     // props
     const {
       modalVisible,
+      accountExistModalVisible,
       dimmedVisible,
-      task
+      task,
+      email
     } = this.props;
 
     // function
     const {
-      handleLoginModal,
+      handleModal,
       handleTask,
       handleAuth,
       handleChangeInput,
       handaleGoogleLogin,
-      handleFacebookLogin
+      handleFacebookLogin,
+      handleConnectOauth
     } = this;
 
     return (
       <Router>
         <div>
           <HeaderContainer
-            onLoginModal={handleLoginModal}
+            onModal={handleModal}
             />
           <Route exact path="/" component={HomePage} />
           <Route path="/daily" component={DailyPage} />
+          <AccountExistModalContainer
+            accountExistModalVisible={accountExistModalVisible}
+            email={email}
+            onModal={handleModal}
+            onConnectOauth={handleConnectOauth}
+            />
           <LoginModalContainer
             modalVisible={modalVisible}
             onTask={handleTask}
@@ -217,9 +256,10 @@ class App extends Component {
             onGoogleLogin={handaleGoogleLogin}
             onFacebookLogin={handleFacebookLogin}
             />
+
           <DimmedContainer
             dimmedVisible={dimmedVisible}
-            onLoginModal={handleLoginModal}
+            onModal={handleModal}
             />
         </div>
       </Router>
@@ -230,7 +270,9 @@ class App extends Component {
 export default connect(
   (state) => ({
     modalVisible: state.base.getIn(['loginmodal', 'visible']),
+    accountExistModalVisible: state.base.getIn(['accountexistmodal', 'visible']),
     task: state.base.getIn(['loginmodal', 'task']),
+    email: state.base.getIn(['accountexistmodal', 'email']),
     dimmedVisible: state.base.getIn(['dimmed', 'visible']),
     form: state.auth.get('form')
   }),

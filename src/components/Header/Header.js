@@ -38,13 +38,13 @@ const Center = styled.div`
   }
 `;
 
-const Header = ({children, onLoginModal}) => (
+const Header = ({children, onModal}) => (
   <Wrapper>
     <Center>
       <Sidebar/>
       <Logo/>
       <Nav>
-        <Button text="로그인 / 회원가입" backgroundColor={oc.gray[7]} onClick={() => { onLoginModal(true) }}>
+        <Button text="로그인 / 회원가입" backgroundColor={oc.gray[7]} onClick={() => { onModal(true) }}>
           <User size={20}/>
         </Button>
       </Nav>
@@ -53,11 +53,11 @@ const Header = ({children, onLoginModal}) => (
 );
 
 Header.PropTypes = {
-  onLoginModal: PropTypes.func
+  onModal: PropTypes.func
 }
 
 Header.defaultProps = {
-  onLoginModal: () => { console.error('onLoginModal not defined') }
+  onModal: () => { console.error('onModal not defined') }
 }
 
 export default Header;

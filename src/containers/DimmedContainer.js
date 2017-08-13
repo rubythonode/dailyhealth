@@ -5,21 +5,21 @@ import PropTypes from 'prop-types';
 class DimmedContainer extends Component {
 
   render() {
-    const { dimmedVisible, onLoginModal } = this.props;
+    const { dimmedVisible, onModal } = this.props;
     return (
-      <Dimmed dimmedVisible={dimmedVisible} onLoginModal={onLoginModal}/>
+      <Dimmed dimmedVisible={dimmedVisible} onModal={onModal}/>
     );
   }
 }
 
 DimmedContainer.PropTypes = {
   dimmedVisible: PropTypes.bol,
-  onLoginModal: PropTypes.func
+  onModal: PropTypes.func
 }
 
 DimmedContainer.defaultProps = {
   dimmedVisible: false,
-  onLoginModal: () => { console.error('onLoginModal not defined') }
+  onModal: () => { console.error('onModal not defined') }
 }
 
 export default DimmedContainer;

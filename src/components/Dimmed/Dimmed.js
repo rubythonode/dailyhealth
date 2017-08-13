@@ -22,8 +22,8 @@ const Wrapper = styled.div`
   background-color: ${oc.gray[7]};
 `;
 
-const Dimmed = ({ dimmedVisible, onLoginModal}) => (
-  <DimmedWrapper onClick={() => { onLoginModal(false) }}>
+const Dimmed = ({ dimmedVisible, onModal}) => (
+  <DimmedWrapper onClick={() => { onModal(false) }}>
     <CSSTransitionGroup
       transitionName="fade"
       transitionEnterTimeout={800}
@@ -37,12 +37,12 @@ const Dimmed = ({ dimmedVisible, onLoginModal}) => (
 
 Dimmed.PropTypes = {
   dimmedVisible: PropTypes.bol,
-  onLoginModal: PropTypes.func
+  onModal: PropTypes.func
 }
 
 Dimmed.defaultProps = {
   dimmedVisible: false,
-  onLoginModal: () => { console.error('onLoginModal not defined') }
+  onModal: () => { console.error('onModal not defined') }
 }
 
 
