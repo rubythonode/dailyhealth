@@ -265,8 +265,6 @@ class App extends Component {
       'status':false,
       'uid': ''
     });
-    BaseActions.setSliderNavVisibility(true);
-    BaseActions.setDimmedVisibility(true);
     alertify.success('로그아웃에 성공했어요!');
   }
 

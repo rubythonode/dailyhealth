@@ -41,7 +41,7 @@ const SliderNav = ({
 }) => {
   const login = (
     <div>
-      <Avatar backgroundColor={backgroundColor}/>
+      <Avatar backgroundColor={backgroundColor} color="white"/>
       <Text>
         <Link to="/mypage">마이페이지</Link>
       </Text>
@@ -53,7 +53,7 @@ const SliderNav = ({
 
   const Notlogin = (
     <div>
-      <Avatar backgroundColor="black">
+      <Avatar backgroundColor="black" color="white">
         <FaUserSecret size={100}/>
       </Avatar>
       <Text onClick={() => onSliderNavModal() }>

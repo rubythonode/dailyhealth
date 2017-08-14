@@ -21,19 +21,24 @@ const Wrapper = styled.input`
   }
 `;
 
-const Input = ({...props}) => (
-  <Wrapper {...props} />
+const Input = ({...props, disabled}) => (
+  <Wrapper {...props} disabled={disabled ? disabled : ''}/>
 )
 
 Input.PropTypes = {
   type: PropTypes.string,
   placeholder: PropTypes.string,
   name: PropTypes.string,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  disabled: PropTypes.bol
 }
 
 Input.defaultProps = {
-
+  type: '',
+  placeholder: '',
+  name: '',
+  onChange: () => { console.error('onChange not defined') },
+  disabled: ''
 }
 
 export default Input;
