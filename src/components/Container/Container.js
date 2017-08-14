@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   margin: 0 auto;
 
   /* 크기 */
-  width: 998px;
+  width: 80%;
 
   /* 패딩 및 마진 */
   padding-top: 5rem;

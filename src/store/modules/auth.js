@@ -25,7 +25,7 @@ const initialState = Map({
   }),
   login: Map({
     status: false,
-    displayname: '#e64980'
+    displayname: ''
   })
 });
 

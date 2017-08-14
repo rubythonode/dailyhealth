@@ -19,8 +19,7 @@ const users = {
 
   createDisplayName(uid, displayName) {
     return firebase.database().ref('/users/'+ uid).update({
-      displayName,
-      photoURL: 'default.jpg'
+      displayName
     })
   }
 }

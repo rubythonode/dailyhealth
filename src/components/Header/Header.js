@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Sidebar, Logo, Nav, Button } from '../';
 import User from 'react-icons/lib/fa/user';
 import { Menu, MenuItem } from 'react-mdl';
+import { Link } from 'react-router-dom';
 
 const Wrapper = styled.div`
   /* 색상 */
@@ -61,7 +62,7 @@ const Header = ({
             'marginTop': '0.6rem'
             }} />
           <Menu target="demo-menu-lower-left" align="right">
-              <MenuItem>마이 페이지</MenuItem>
+              <MenuItem><Link to="/mypage">마이 페이지</Link></MenuItem>
               <MenuItem onClick={() => { onLogout() }}>로그아웃</MenuItem>
           </Menu>
       </div>

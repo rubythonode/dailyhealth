@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import * as authActions from '../../../store/modules/auth';
 import users from '../../../api/users';
 import { withRouter } from 'react-router';
+import alertify from 'alertifyjs';
 
 class HomePage extends Component {
 
@@ -21,7 +22,12 @@ class HomePage extends Component {
 
   handleCreateDisplayName = () => {
     const { uid, displayname, AuthActions, history } = this.props;
+    if(displayname === "") {
+      alertify.error('닉네임이 비어있어요!');
+      return
+    }
     users.createDisplayName(uid, displayname);
+
 
     users.findUserById(uid).then((user) => {
       AuthActions.changeLoginStatus(false);

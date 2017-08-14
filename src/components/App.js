@@ -6,7 +6,7 @@ import alertify from 'alertifyjs';
 import PropTypes from 'prop-types';
 import * as baseActions from '../store/modules/base';
 import * as authActions from '../store/modules/auth';
-import { HomePage, DailyPage } from './Page';
+import { HomePage, DailyPage, MyPage } from './Page';
 import { HeaderContainer, LoginModalContainer, AccountExistModalContainer, DimmedContainer, SliderNavContainer } from '../containers';
 import auth from '../api/auth';
 import users from '../api/users';
@@ -68,6 +68,15 @@ class App extends Component {
     BaseActions.setDimmedVisibility(boolean);
     BaseActions.setModalVisibility(boolean);
     BaseActions.setAccountExistModalVisibility(boolean, '');
+  }
+
+  // 슬라이드 네비 닫고 모달 열기
+
+  handleSliderNavModal = () => {
+    const { BaseActions } = this.props;
+    BaseActions.setDimmedVisibility(true);
+    BaseActions.setModalVisibility(true);
+    BaseActions.setSliderNavVisibility(false);
   }
 
   // oauth 가입시 이메일 중복으로 충돌시 출력되는 모달 핸들링 함수
@@ -250,12 +259,14 @@ class App extends Component {
   // 로그아웃
 
   handleLogout = () => {
-    const { AuthActions } = this.props;
+    const { AuthActions, BaseActions } = this.props;
     auth.logout();
     AuthActions.changeUserStatus({
       'status':false,
       'uid': ''
     });
+    BaseActions.setSliderNavVisibility(true);
+    BaseActions.setDimmedVisibility(true);
     alertify.success('로그아웃에 성공했어요!');
   }
 
@@ -291,7 +302,8 @@ class App extends Component {
       handleFacebookLogin,
       handleConnectOauth,
       handleLogout,
-      handleSliderNav
+      handleSliderNav,
+      handleSliderNavModal
     } = this;
 
     return (
@@ -306,9 +318,14 @@ class App extends Component {
             />
           <SliderNavContainer
             slidernavVisible={slidernavVisible}
+            onLogout={handleLogout}
+            backgroundColor={color}
+            status={status}
+            onSliderNavModal={handleSliderNavModal}
           />
           <Route exact path="/" component={HomePage} />
           <Route path="/daily" component={DailyPage} />
+          <Route path="/mypage" component={MyPage} />
           <AccountExistModalContainer
             accountExistModalVisible={accountExistModalVisible}
             email={email}

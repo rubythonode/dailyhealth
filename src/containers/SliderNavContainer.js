@@ -13,21 +13,39 @@ class SliderNavContainer extends Component {
   }
   render() {
     const {
-      slidernavVisible
+      slidernavVisible,
+      backgroundColor,
+      status,
+      onLogout,
+      onSliderNavModal
     } = this.props;
     return (
-      <SliderNav visible={slidernavVisible}/>
+      <SliderNav
+        visible={slidernavVisible}
+        backgroundColor={backgroundColor}
+        status={status}
+        onLogout={onLogout}
+        onSliderNavModal={onSliderNavModal}
+      />
     );
   }
 
 }
 
 SliderNavContainer.PropTypes = {
-  slidernavVisible: PropTypes.bol
+  slidernavVisible: PropTypes.bol,
+  backgroundColor: PropTypes.string,
+  status: PropTypes.bol,
+  onLogout: PropTypes.func,
+  onSliderNavModal: PropTypes.func
 }
 
 SliderNavContainer.defaultProps = {
-  slidernavVisible: false
+  slidernavVisible: false,
+  status: false,
+  backgroundColor: '#e64980',
+  onLogout: () => { console.error('onLogout not defined') },
+  onSliderNavModal: () => { console.error('onSliderNavModal not defined') }
 }
 
 export default connect(

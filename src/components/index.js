@@ -20,6 +20,10 @@ import Float from './Float/Float';
 import AuthControl from './AuthControl/AuthControl';
 import Dimmed from './Dimmed/Dimmed';
 import SliderNav from './Nav/SliderNav';
+import List from './List/List';
+import Item from './Item/Item';
+import Avatar from './Avatar/Avatar';
+
 
 export {
   App,
@@ -42,5 +46,8 @@ export {
   Float,
   AuthControl,
   Dimmed,
-  SliderNav
+  SliderNav,
+  List,
+  Item,
+  Avatar
 }
