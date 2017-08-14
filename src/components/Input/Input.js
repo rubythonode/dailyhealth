@@ -22,7 +22,7 @@ const Wrapper = styled.input`
 `;
 
 const Input = ({...props}) => (
-  <Wrapper {...props}/>
+  <Wrapper {...props} />
 )
 
 Input.PropTypes = {

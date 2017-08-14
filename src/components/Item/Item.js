@@ -12,9 +12,10 @@ const Wrapper = styled.div`
   border-bottom: 1px solid #ccc;
 `;
 
-const Item = ({children, padding}) => (
+const Item = ({children, padding, onClick}) => (
   <Wrapper
     padding={padding}
+    onClick={onClick}
     >
     {children}
   </Wrapper>

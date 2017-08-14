@@ -23,7 +23,7 @@ import SliderNav from './Nav/SliderNav';
 import List from './List/List';
 import Item from './Item/Item';
 import Avatar from './Avatar/Avatar';
-
+import MyPageContainer from './MyPageContainer/MyPageContainer';
 
 export {
   App,
@@ -49,5 +49,6 @@ export {
   SliderNav,
   List,
   Item,
-  Avatar
+  Avatar,
+  MyPageContainer
 }
